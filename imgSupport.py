@@ -6,4 +6,5 @@ import numpy as np
 def showImg(imgArray):
     imgArray = imgArray.reshape((28,28))
     img = im.fromarray(imgArray.astype(np.uint8))
+    img.save('test.jpg')
     img.show()

@@ -52,3 +52,10 @@ class Layer:
     # Returns a 1D array with activatoins of all the neurons in the layer
     def getActivations(self):
         return self.activations
+    
+    def getBiases(self):
+        biasesArray = np.array([])
+        for neuron in self.neurons:
+            biasesArray = np.append(biasesArray, neuron.bias1)
+        return biases
+        
