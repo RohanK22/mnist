@@ -10,9 +10,12 @@ class Neuron:
         self.setActivation(0)
         
     def setActivation(self, activation):
-        self.actication = activation
+        self.activation = activation
     
     def show(self):
         print('Weights: ',self.weights)
         print('Bias: ', self.bias)
         print('Activation: ', self.activation)
+        
+    def getActivation(self, prevLayer):
+        return np.dot(self.weights, prevLayer.getActivation) + self.bias

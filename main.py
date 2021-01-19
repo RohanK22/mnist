@@ -34,4 +34,6 @@ class Network:
         
 
 network = Network()
-network.show()
+print((
+network.layer2.getWeightsArray()
+))
