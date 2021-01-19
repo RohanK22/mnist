@@ -16,11 +16,11 @@ class Network:
     # layers
     def __init__(self):
         # layer1 is the input layer
-        self.layer1 = Layer(784, None)
-        self.layer2 = Layer(16, self.layer1)
-        self.layer3 = Layer(16, self.layer2)
+        self.layer1 = Layer(784, trainX[0]/255 , None)
+        self.layer2 = Layer(16, None, self.layer1)
+        self.layer3 = Layer(16, None, self.layer2)
         # layer4 is the output layer
-        self.layer4 = Layer(10, self.layer3)
+        self.layer4 = Layer(10, None, self.layer3)
     
     def show(self):
         print(self.layer1)
@@ -35,5 +35,5 @@ class Network:
 
 network = Network()
 print((
-network.layer2.getWeightsArray()
+network.layer2.getWeightsArray().shape
 ))
