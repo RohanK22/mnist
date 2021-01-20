@@ -42,6 +42,12 @@ class Layer:
                 self.activations = np.append(self.activations, neuron.computeActivation(self.prevLayer))
                 neuron.setActivation(None, self.prevLayer)
             
+    def setWeightsArray(self, weightsArray):
+        for j in weightsArray:
+            for k in j:
+                self.neurons[j].weights = k
+        
+            
     # Returns a 2D array with all the weights corresponding to each neuron within the layer
     def getWeightsArray(self):
         weightsArray = np.array([])
@@ -56,6 +62,6 @@ class Layer:
     def getBiases(self):
         biasesArray = np.array([])
         for neuron in self.neurons:
-            biasesArray = np.append(biasesArray, neuron.bias1)
-        return biases
+            biasesArray = np.append(biasesArray, neuron.bias)
+        return biasesArray
         

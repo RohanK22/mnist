@@ -28,8 +28,28 @@ class Network:
         print(self.layer1)
         print(self.layer2)
         
-    def train(self):
-        print('trining')
+    def train(self, epochs):
+        print('Training Started')
+        for e in range(epochs):
+            for trainingExample in trainX:
+                self.SDG()
+        
+    def SDG(self):
+        self.backprop(self.layer4, None)
+        self.backprop(self.layer3, self.layer4)
+        self.backprop(self.layer2, self.layer3)
+        self.backprop(self.layer1, self.layer2)
+    
+    def backprop(self, layer, layerAfter):
+        if layerAfter == None:
+            weightsArray = layer.getWeightsArray()
+            layer.setWeightsArray(weightsArray - self.costDerivative())
+    
+    def costDerivative(self):
+        modifyWeightsBy = np.array([])
+        for j in layer:
+            for k in j:
+                self.neurons[j].weights = k
         
     def predict(self, exampleIndex):
         self.layer1.setActivations(trainX[exampleIndex] / 255)
@@ -41,11 +61,12 @@ class Network:
         maximum = max(finalLayerActivations) 
         for i in range (10):
             if finalLayerActivations[i] == maximum:
-                print('Output is ', i)
-                showImg(trainX[exampleIndex])
+                print('Network Prediction: ', i)
+                print('Label: ', labels[exampleIndex])
+                # showImg(trainX[exampleIndex])
                 break
             
-    def cost(self, exampleIndex):
+    def costOne(self, exampleIndex):
         correctPrediction = np.array([])
         
         for i in range(10):
@@ -53,12 +74,13 @@ class Network:
                 correctPrediction = np.append(correctPrediction, 1)
             else:
                 correctPrediction = np.append(correctPrediction, 0)
-        print(correctPrediction)
         error = np.subtract(self.layer4.getActivations(), correctPrediction)
-        print(error)
-        return np.dot(error, error)
+        cost = np.dot(error, error)
+        print('cost: ', cost )
+        return cost
             
         
         
 network = Network()
 network.predict(0)
+network.cost(0)
