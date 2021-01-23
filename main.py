@@ -53,8 +53,7 @@ class Network:
                 biasesArray = layer.getBiases()
                 layer.setWeightsArray(weightsArray - self.finalLayerErrorWeights(trainingExampleIndex, layerBefore.numberOfNeurons, layer.numberOfNeurons, layerBefore, layer, layerAfter))
                 layer.setBiasesArray(biasesArray - self.finalLayerErrorBiases(trainingExampleIndex, layerBefore.numberOfNeurons, layer.numberOfNeurons, layerBefore, layer, layerAfter))
-                # Recompute all the activations of the last layer
-                layer.setActivations()
+            
             else:
                 
                 
