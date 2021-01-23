@@ -18,10 +18,17 @@ class Neuron:
             self.activation = activation
         elif prevLayer != None:
             self.activation = self.computeActivation(prevLayer)
+        
+        
+    def setBias(self, bias):
+        self.bias = bias
     
     def computeActivation(self, prevLayer):
         return sigmoid(np.dot(self.weights, prevLayer.activations) + self.bias)
-        
+    
+    def computeZ(self, prevLayer):
+        return (np.dot(self.weights, prevLayer.activations) + self.bias)
+    
     def show(self):
         print('Weights: ',self.weights)
         print('Bias: ', self.bias)

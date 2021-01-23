@@ -18,14 +18,30 @@ class Layer:
             newNeuron = Neuron(numberOfWeights)
             self.neurons.append(newNeuron)
         
-        self.setActivations(activations)
-        # Activation Array
-        # Weights Array
-        # Biases Array
+        if prevLayer == None:
+            self.setActivations(activations)
+        else:
+            self.setArrays(activations)
+        
             
     def show(self):
         print('Number of Neurons: ', self.numberOfNeurons)
-        print('Neuron Objects: ', self.neurons)
+        print('Activations Array shape: ', self.activations.shape)
+        if self.prevLayer != None:
+            print('Weights Array shape: ', self.weightsArray.shape)
+            print('Biases Array shape: ', self.biasesArray.shape)
+        
+    def setArrays(self, activations):
+        # Activation Array
+        self.activations = None
+        self.setActivations(activations)
+        
+        # Weights Array
+        self.weightsArray = self.getWeightsArray()
+        # Biases Array
+        self.biasesArray = self.getBiases()
+        self.zArray = None
+        self.setzArray()
         
     def setActivations(self, activations):
         # For layer 1 the activations are predefined based on the image input
@@ -41,8 +57,16 @@ class Layer:
             for neuron in self.neurons:
                 self.activations = np.append(self.activations, neuron.computeActivation(self.prevLayer))
                 neuron.setActivation(None, self.prevLayer)
+        
+    def setzArray(self):
+        # For layer 1 the activations are predefined based on the image input
+        # print(type(activations))
+        self.zArray = np.array([])
+        for neuron in self.neurons:
+            self.zArray = np.append(self.zArray, neuron.computeZ(self.prevLayer))
             
     def setWeightsArray(self, weightsArray):
+        self.weightsArray = weightsArray
         for j in weightsArray:
             for k in j:
                 self.neurons[j].weights = k
@@ -64,4 +88,9 @@ class Layer:
         for neuron in self.neurons:
             biasesArray = np.append(biasesArray, neuron.bias)
         return biasesArray
+
+    def setBiasesArray(self, biasesArray):
+        self.biasesArray = biasesArray
+        for i in range(len(self.neurons)):
+            self.neurons[i].setBias(self.biasesArray[i])
         
