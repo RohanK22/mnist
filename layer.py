@@ -67,9 +67,8 @@ class Layer:
             
     def setWeightsArray(self, weightsArray):
         self.weightsArray = weightsArray
-        for j in weightsArray:
-            for k in j:
-                self.neurons[j].weights = k
+        for j in range(len(weightsArray)):
+            self.weightsArray[j] = weightsArray[j]
         
             
     # Returns a 2D array with all the weights corresponding to each neuron within the layer
@@ -77,7 +76,7 @@ class Layer:
         weightsArray = np.array([])
         for neuron in self.neurons:
             weightsArray = np.append(weightsArray, neuron.weights)
-        return weightsArray.reshape( self.prevLayer.numberOfNeurons, self.numberOfNeurons)
+        return weightsArray.reshape(len(self.neurons), len(self.neurons[0].weights))
     
     # Returns a 1D array with activatoins of all the neurons in the layer
     def getActivations(self):

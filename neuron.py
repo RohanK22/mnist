@@ -11,7 +11,7 @@ class Neuron:
         self.weights = np.array([])
         for i in range(numberOfWeights):
             self.weights = np.append(self.weights, random.uniform(-1, 1))
-        self.bias = random.uniform(-10, 10)
+        self.bias = random.uniform(-1, 1)
         
     def setActivation(self, activation, prevLayer):
         if activation != None:
